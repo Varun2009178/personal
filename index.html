@@ -3,96 +3,238 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>varun — projects and work</title>
+    <title>varun nukala</title>
+    <meta name="description" content="varun nukala — researcher and builder working at the intersection of computer science, environmental science, and startups.">
     <style>
-      :root { color-scheme: light; }
-      html, body { margin: 0; padding: 0; background: #ffffff; color: #000000; }
-      body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; line-height: 1.7; text-transform: lowercase; }
-      .container { max-width: 1120px; margin: 48px auto; padding: 0 16px; }
-      .grid { display: grid; grid-template-columns: 240px 1fr 240px; gap: 24px; align-items: start; }
-      aside.left { border-right: 1px solid #e6e6e6; padding-right: 16px; }
-      aside.right { border-left: 1px solid #e6e6e6; padding-left: 16px; }
-      a { color: inherit; text-decoration: underline; }
-      h1, h2, h3 { font-weight: 700; line-height: 1.2; margin: 1.2em 0 0.6em; }
-      h1 { font-size: 2rem; margin-top: 0; }
-      p { margin: 0.8rem 0; }
-      ul { padding-left: 1.2em; margin: 0.6rem 0; }
-      li { margin: 0.25rem 0; }
-      section { margin: 2.4rem 0; }
-      aside h3 { margin-top: 0; }
-      @media (max-width: 960px) {
-        .grid { grid-template-columns: 1fr; }
-        aside.left, aside.right { border: 0; padding: 0; }
+      :root {
+        --bg: #fbfbf8;
+        --text: #141412;
+        --muted: #71706a;
+        --line: #e6e4dd;
+        --accent: #3b5d45;
+        --serif: Georgia, "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", serif;
+        --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+      body {
+        font-family: var(--sans);
+        line-height: 1.6;
+        text-transform: lowercase;
+        -webkit-font-smoothing: antialiased;
+      }
+      a { color: var(--text); text-decoration: none; border-bottom: 1px solid var(--line); transition: border-color 0.15s ease, color 0.15s ease; }
+      a:hover { color: var(--accent); border-color: var(--accent); }
+
+      /* top bar */
+      header.top {
+        position: sticky; top: 0; z-index: 10;
+        background: var(--bg);
+        border-bottom: 1px solid var(--line);
+      }
+      .top-inner {
+        max-width: 1120px; margin: 0 auto; padding: 18px 24px;
+        display: flex; align-items: center; justify-content: space-between;
+        flex-wrap: wrap; gap: 10px;
+      }
+      .top-inner .name { font-family: var(--serif); font-size: 1.05rem; }
+      .top-nav { display: flex; gap: 20px; font-size: 0.82rem; letter-spacing: 0.02em; }
+      .top-nav a { border-bottom: none; color: var(--muted); }
+      .top-nav a:hover { color: var(--accent); }
+
+      .container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+
+      /* hero */
+      .hero { padding: 88px 0 56px; max-width: 760px; }
+      .hero h1 { font-family: var(--serif); font-weight: 400; font-size: 3.2rem; margin: 0 0 18px; line-height: 1.08; }
+      .hero .lede { font-size: 1.15rem; color: var(--text); margin: 0 0 20px; }
+
+      /* asymmetric section rows */
+      .row { display: grid; grid-template-columns: 150px 1fr; gap: 40px; padding: 72px 0; border-top: 1px solid var(--line); }
+      .row .label {
+        position: sticky; top: 72px; align-self: start;
+        font-size: 0.78rem; color: var(--muted); letter-spacing: 0.04em;
+      }
+      .row h2 { font-family: var(--serif); font-weight: 400; font-size: 1.6rem; margin: 0 0 24px; }
+      .row h3 { font-family: var(--serif); font-weight: 400; font-size: 1.25rem; margin: 0 0 8px; }
+      .row p { margin: 0.5rem 0; color: var(--text); }
+      .muted { color: var(--muted); }
+
+      /* research cards */
+      .research-grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: 48px; }
+      .card { padding-top: 2px; }
+      .stats { display: flex; gap: 28px; margin: 18px 0; flex-wrap: wrap; }
+      .stat .num { font-family: var(--serif); font-size: 1.8rem; color: var(--accent); line-height: 1.1; }
+      .stat .lab { font-size: 0.75rem; color: var(--muted); margin-top: 2px; }
+
+      /* ventures */
+      .venture-lead { margin-bottom: 40px; }
+      .venture-list { border-top: 1px solid var(--line); }
+      .venture-item { padding: 18px 0; border-bottom: 1px solid var(--line); }
+      .venture-item h3 { font-size: 1.05rem; margin-bottom: 4px; }
+
+      /* experience */
+      .exp-item {
+        display: flex; justify-content: space-between; gap: 24px;
+        padding: 16px 0; border-bottom: 1px solid var(--line);
+      }
+      .exp-item:first-child { border-top: 1px solid var(--line); }
+      .exp-role { font-size: 1rem; }
+      .exp-org { color: var(--muted); font-size: 0.92rem; }
+      .exp-date { color: var(--muted); font-size: 0.85rem; white-space: nowrap; text-align: right; }
+
+      /* honors */
+      .honors-list { columns: 2; column-gap: 40px; }
+      .honors-list li { margin: 0 0 10px; list-style: none; break-inside: avoid; font-size: 0.95rem; }
+
+      /* footer */
+      footer { padding: 64px 0 80px; border-top: 1px solid var(--line); }
+      footer .email { font-family: var(--serif); font-size: 1.3rem; }
+      footer .meta { color: var(--muted); font-size: 0.82rem; margin-top: 24px; }
+
+      @media (max-width: 760px) {
+        .row { grid-template-columns: 1fr; gap: 10px; padding: 48px 0; }
+        .row .label { position: static; }
+        .research-grid { grid-template-columns: 1fr; gap: 40px; }
+        .hero h1 { font-size: 2.3rem; }
+        .honors-list { columns: 1; }
+        .exp-item { flex-direction: column; gap: 4px; }
+        .exp-date { text-align: left; }
       }
     </style>
   </head>
   <body>
-    <div class="container">
-      <div class="grid">
-        <aside class="left">
-          <nav>
-            <h3>nav</h3>
-            <ul>
-              <li><a href="#teyra">teyra</a></li>
-              <li><a href="#ml-projects">ml projects</a></li>
-              <li><a href="#experience">experience</a></li>
-              <li><a href="#reach-out">reach out</a></li>
-            </ul>
-          </nav>
-        </aside>
-
-        <main>
-          <header>
-            <h1>varun</h1>
-            <p>junior in high school passionate about innovating in stem</p>
-          </header>
-
-          <section id="teyra">
-            <h2>teyra</h2>
-            <p><a href="https://teyra.app" target="_blank" rel="noopener noreferrer">teyra.app</a></p>
-            <ul>
-              <li>over 5k users</li>
-              <li>over 1m reached</li>
-              <li>4‑figure grants</li>
-            </ul>
-            <h3>why i'm building it</h3>
-            <p>because i wanted an intuitive interface that serves as a place to store tasks and stay tangibly motivated.</p>
-            <p>started may 2025; launched august 2025. currently looking for ugc creators — dm / email me!</p>
-          </section>
-
-          <section id="ml-projects">
-            <h2>machine learning projects</h2>
-            <h3>fires — fire ignition and risk evaluation system</h3>
-            <p>end‑to‑end system for predicting ignition risk and evaluating fire spread using geospatial data and ml. links, demos, and results coming soon.</p>
-            <h3>submissions</h3>
-            <p>submitting to regeneron science fair and the conrad challenge; usage in a nonprofit (soon).</p>
-          </section>
-
-          <section id="experience">
-            <h2>experience</h2>
-            <ul>
-              <li>software engineer intern at samsat — jun 2025 – present — received $2k federal funding</li>
-              <li>software developer at stellar (edtech) — feb 2025 – jul 2025</li>
-              <li>applied logic research at utd — summer 2025</li>
-              <li>software developer at uiw — jun 2024</li>
-            </ul>
-          </section>
-
-          <footer>
-            <p>last updated: october 2025.</p>
-          </footer>
-        </main>
-
-        <aside class="right">
-          <div>
-            <h3 id="reach-out">reach out</h3>
-            <p>varun [dot] k [dot] nukala [@] gmail [dot] com</p>
-            <p>email me if you are building in the ai / finance / human behavior space!</p>
-          </div>
-        </aside>
+    <header class="top">
+      <div class="top-inner">
+        <span class="name">varun nukala</span>
+        <nav class="top-nav">
+          <a href="#research">research</a>
+          <a href="#work">work</a>
+          <a href="#experience">experience</a>
+          <a href="#honors">honors</a>
+          <a href="#contact">contact</a>
+        </nav>
       </div>
+    </header>
+
+    <div class="container">
+      <section class="hero">
+        <h1>varun nukala</h1>
+        <p class="lede">high school senior in san antonio, texas (tmi episcopal, class of 2027). researcher and builder working where computer science, environmental science, and startups meet.</p>
+      </section>
+
+      <section class="row" id="research">
+        <div class="label">research</div>
+        <div>
+          <div class="research-grid">
+            <div class="card">
+              <h3>fires — forest ignition and risk evaluation system</h3>
+              <p>sole-authored deep learning model that predicts wildfire risk from high-resolution satellite imagery. a mobilenet cnn extracts features, which train mlp, knn, and random forest classifiers. independent research, no mentor or co-authors.</p>
+              <div class="stats">
+                <div class="stat"><div class="num">96.7%</div><div class="lab">validation accuracy</div></div>
+              </div>
+              <p>presented solo at <span class="muted">ieee igarss 2026</span>, washington, d.c. (august 2026). published in ieee xplore: <a href="https://ieeexplore.ieee.org/document/11730559" target="_blank" rel="noopener noreferrer">ieeexplore.ieee.org/document/11730559</a>. also accepted as a poster at agu26.</p>
+            </div>
+            <div class="card">
+              <h3>geospatial foundation models for flood segmentation</h3>
+              <p>independent study testing whether frozen-encoder geospatial foundation models (prithvi-eo-2.0, clay) beat a fully trained u-net when labels are scarce and the test region is unseen. uses sen1floods11 in a 90-run matrix — 3 models × 5 label budgets × 3 seeds — with held-out events in somalia, sri lanka, and spain.</p>
+              <div class="stats">
+                <div class="stat"><div class="num">+0.21</div><div class="lab">water iou, clay vs. u-net (somalia, 10% labels)</div></div>
+              </div>
+              <p>key finding: at 10% labels, clay beat the u-net on every unseen event across all seeds — foundation models are not uniformly superior. accepted as a poster at agu26 (december 2026).</p>
+            </div>
+          </div>
+          <p class="muted" style="margin-top: 32px;">recognition: selected for agu's outstanding emerging presenter program and agu circles.</p>
+        </div>
+      </section>
+
+      <section class="row" id="work">
+        <div class="label">ventures &amp; projects</div>
+        <div>
+          <div class="venture-lead">
+            <h3>teyra — founder and sole developer, may 2025–present</h3>
+            <p>a productivity app where an animated cactus mascot celebrates completed tasks and sustainable habits. built solo with react and django.</p>
+            <div class="stats">
+              <div class="stat"><div class="num">10,300+</div><div class="lab">users</div></div>
+              <div class="stat"><div class="num">$5k</div><div class="lab">arr</div></div>
+              <div class="stat"><div class="num">2m+</div><div class="lab">impressions</div></div>
+            </div>
+            <p>funded by a $1k starseed grant. <a href="https://www.teyra.app" target="_blank" rel="noopener noreferrer">teyra.app</a></p>
+          </div>
+
+          <div class="venture-list">
+            <div class="venture-item">
+              <h3>honeytree — creator and maintainer, june 2026–present</h3>
+              <p>an open-source cli on npm that grows a pixelated forest in developers' terminals as they code and funds real trees in kenya and ethiopia. 2,500+ downloads.</p>
+            </div>
+            <div class="venture-item">
+              <h3>slip</h3>
+              <p>a free, open-source cold-email tool that sends personalized daily batches from gmail.</p>
+            </div>
+            <div class="venture-item">
+              <h3>earlier projects</h3>
+              <p>eliee. groundwork — a cli that generates persistent ai context files for coding assistants.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="row" id="experience">
+        <div class="label">experience</div>
+        <div>
+          <div class="exp-item">
+            <div>
+              <div class="exp-role">vc in residence</div>
+              <div class="exp-org">lvlup ventures</div>
+            </div>
+            <div class="exp-date">jan 2026–present</div>
+          </div>
+          <div class="exp-item">
+            <div>
+              <div class="exp-role">research intern</div>
+              <div class="exp-org">ut dallas</div>
+            </div>
+            <div class="exp-date">jun–jul 2026</div>
+          </div>
+          <div class="exp-item">
+            <div>
+              <div class="exp-role">full-stack developer intern</div>
+              <div class="exp-org">san antonio museum of science and technology (samsat)</div>
+            </div>
+            <div class="exp-date">aug 2025–mar 2026</div>
+          </div>
+          <div class="exp-item">
+            <div>
+              <div class="exp-role">research intern</div>
+              <div class="exp-org">university of the incarnate word</div>
+            </div>
+            <div class="exp-date">jun 2024</div>
+          </div>
+          <p class="muted" style="margin-top: 20px; font-size: 0.9rem;">lvlup ventures: source and screen early-stage startups for a ~$250m aum fund; reviewed founder pitches and relayed top deals to the investment team.<br>samsat: led development of an environmental-science quiz platform; in contention for a $2k grant with potential national rollout.<br>uiw: built an ai email spam classifier; demoed to 60+ attendees; won best overall.</p>
+        </div>
+      </section>
+
+      <section class="row" id="honors">
+        <div class="label">honors</div>
+        <div>
+          <ul class="honors-list">
+            <li>sole-author ieee igarss 2026 paper (published in ieee xplore)</li>
+            <li>agu outstanding emerging presenter; agu circles</li>
+            <li>conrad challenge</li>
+            <li>texas science &amp; engineering fair finalist; biobridge global special award</li>
+            <li>ap scholar with distinction; national merit commended scholar</li>
+            <li>yale young global scholars (yygs)</li>
+            <li>runner-up, national armed drill championship (nighthawks jrotc armed drill team)</li>
+            <li>eagle scout with bronze palm; order of the arrow (brotherhood)</li>
+            <li>deca state qualifier; academic worldquest, 4th place (district)</li>
+          </ul>
+        </div>
+      </section>
+
+      <footer id="contact">
+        <div class="email"><a href="mailto:varun.k.nukala@gmail.com">varun.k.nukala@gmail.com</a></div>
+        <p class="meta">last updated: october 2026.</p>
+      </footer>
     </div>
   </body>
-  </html>
-
-
+</html>
